@@ -24,7 +24,7 @@ public class FoodList extends JFrame {
         table = new JTable(model);
         table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        button = new JButton("Delete row");
+        button = new JButton("Delete selected row");
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -42,16 +42,38 @@ public class FoodList extends JFrame {
 
         JPanel panel = new JPanel();
 
-        JTextField jtf = new JTextField(20);
+        JTextField jtf = new JTextField(15);
         JLabel label = new JLabel("Name/Retailer");
 
-        JTextField jtf2 = new JTextField(20);
+        JTextField jtf2 = new JTextField(15);
         JLabel label2 = new JLabel("Serving/Meal");
+
+        JTextField jtf3 = new JTextField(15);
+        JLabel label3 = new JLabel("Type/Group");
+
+
+        JButton addButton = new JButton("Add");
+        addButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               //this will give you myText's contents. Do what you will with them.
+               String f1 = jtf.getText();
+               String f2 = jtf2.getText();
+               String f3 = jtf3.getText();
+               Object[] row = { f1, "time here", f2, f3 };
+               model.addRow(row);
+
+            }
+        });
 
         panel.add(label);
         panel.add(jtf);
         panel.add(label2);
         panel.add(jtf2);
+        panel.add(label3);
+        panel.add(jtf3);
+
+        panel.add(addButton);
 
         add(panel, BorderLayout.CENTER);
         
