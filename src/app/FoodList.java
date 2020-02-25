@@ -4,8 +4,6 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,11 +14,11 @@ public class FoodList extends JFrame {
     private DefaultTableModel model;
     private JButton button;
 
-    static final long serialVersionUID = 100;
+    static final long serialVersionUID = 100L;
 
     public FoodList() {
         // headers for the table
-        String[] columns = new String[] { "Name/Retailer", "Time", "Serving/Meal", "Type/Group" };
+        String[] columns = new String[] { "Dining type", "Name/Retailer", "Time", "Serving/Meal", "Type/Group" };
 
         // actual data for the table in a 2d array
         Object[][] data = new Object[][] {};
@@ -89,12 +87,13 @@ public class FoodList extends JFrame {
         addButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
+               String dinningType = (String) diningOptions.getSelectedItem();
                String f1 = jtf.getText();
                String f2 = jtf2.getText();
                String f3 = jtf3.getText();
                String timeNow = jtfTime.getText();
 
-               Object[] row = { f1, timeNow, f2, f3 };
+               Object[] row = { dinningType, f1, timeNow, f2, f3 };
                model.addRow(row);
 
                jtf.setText("");
