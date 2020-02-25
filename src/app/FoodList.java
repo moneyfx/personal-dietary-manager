@@ -6,6 +6,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 
 public class FoodList extends JFrame {
@@ -49,10 +52,15 @@ public class FoodList extends JFrame {
         JTextField jtf = new JTextField(15);
         JLabel label = new JLabel("Name");
 
-        JTextField jtfTime = new JTextField(15);
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        jtfTime.setText(dtf.format(now));
+        JTextField jtfTime = new JTextField(25);
+        //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        //LocalDateTime now = LocalDateTime.now();
+        //jtfTime.setText(dtf.format(now));
+
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE MMMM dd, HH:mm a");
+        String stringDate = sdf.format(new Date());
+    
+        jtfTime.setText(stringDate);
         JLabel labelTime = new JLabel("Time");
 
         JTextField jtf2 = new JTextField(15);
