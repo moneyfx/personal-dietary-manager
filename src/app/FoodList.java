@@ -36,10 +36,30 @@ public class FoodList extends JFrame {
                 }
             }
         });
-        add(new JScrollPane(table), BorderLayout.CENTER);
+        add(new JScrollPane(table), BorderLayout.NORTH);
+
         add(button, BorderLayout.SOUTH);
+
+        JPanel panel = new JPanel();
+
+        JTextField jtf = new JTextField(20);
+        JLabel label = new JLabel("Name/Retailer");
+
+        JTextField jtf2 = new JTextField(20);
+        JLabel label2 = new JLabel("Serving/Meal");
+
+        panel.add(label);
+        panel.add(jtf);
+        panel.add(label2);
+        panel.add(jtf2);
+
+        add(panel, BorderLayout.CENTER);
+        
+
+        setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 300);
+        //setSize(600, 600);
         setLocationRelativeTo(null);
         setVisible(true);
 
