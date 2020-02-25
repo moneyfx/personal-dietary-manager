@@ -4,6 +4,9 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 public class FoodList extends JFrame {
     private JTable table;
@@ -17,8 +20,7 @@ public class FoodList extends JFrame {
         String[] columns = new String[] { "Name/Retailer", "Time", "Serving/Meal", "Type/Group" };
 
         // actual data for the table in a 2d array
-        Object[][] data = new Object[][] { { "Banana", "11:00", "1", "bought" }, { "Apple", "12:50", "1", "bought" },
-                { "Mangp", "13:56", "1", "bought" }, { "McDonalds", "16:00", "Lunch", "meat and alternatives" } };
+        Object[][] data = new Object[][] {};
 
         model = new DefaultTableModel(data, columns);
         table = new JTable(model);
@@ -45,6 +47,12 @@ public class FoodList extends JFrame {
         JTextField jtf = new JTextField(15);
         JLabel label = new JLabel("Name/Retailer");
 
+        JTextField jtfTime = new JTextField(15);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        jtfTime.setText(dtf.format(now));
+        JLabel labelTime = new JLabel("Time");
+
         JTextField jtf2 = new JTextField(15);
         JLabel label2 = new JLabel("Serving/Meal");
 
@@ -60,14 +68,18 @@ public class FoodList extends JFrame {
                String f1 = jtf.getText();
                String f2 = jtf2.getText();
                String f3 = jtf3.getText();
-               Object[] row = { f1, "time here", f2, f3 };
+               DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+               LocalDateTime now = LocalDateTime.now();
+               String timeNow = (dtf.format(now));
+               Object[] row = { f1, timeNow, f2, f3 };
                model.addRow(row);
-
             }
         });
 
         panel.add(label);
         panel.add(jtf);
+        panel.add(labelTime);
+        panel.add(jtfTime);
         panel.add(label2);
         panel.add(jtf2);
         panel.add(label3);
