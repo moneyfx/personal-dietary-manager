@@ -40,8 +40,6 @@ public class FoodList extends JFrame {
         });
         add(new JScrollPane(table), BorderLayout.NORTH);
 
-        add(button, BorderLayout.SOUTH);
-
         JPanel panel = new JPanel();
 
         String[] options = new String[] {"Indining", "Outdining"};
@@ -83,15 +81,14 @@ public class FoodList extends JFrame {
         addButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-               //this will give you myText's contents. Do what you will with them.
                String f1 = jtf.getText();
                String f2 = jtf2.getText();
                String f3 = jtf3.getText();
-               //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-               //LocalDateTime now = LocalDateTime.now();
                String timeNow = jtfTime.getText();
+
                Object[] row = { f1, timeNow, f2, f3 };
                model.addRow(row);
+
                jtf.setText("");
                jtf2.setText("");
                jtf3.setText("");
@@ -111,7 +108,26 @@ public class FoodList extends JFrame {
 
         panel.add(addButton);
 
+        panel.add(button);
+
+
         add(panel, BorderLayout.CENTER);
+
+
+        JPanel panelBottom = new JPanel();
+
+        JCheckBox checkbox1 = new JCheckBox("vegetables and fruit");
+        JCheckBox checkbox2 = new JCheckBox("grain products");      
+        JCheckBox checkbox3 = new JCheckBox("milk and alternatives");
+        JCheckBox checkbox4 = new JCheckBox("meat and alternatives");
+
+        panelBottom.add(checkbox1);
+        panelBottom.add(checkbox2);
+        panelBottom.add(checkbox3);
+        panelBottom.add(checkbox4);
+
+        add(panelBottom, BorderLayout.SOUTH);
+
         
 
         setExtendedState(JFrame.MAXIMIZED_BOTH); 
@@ -120,17 +136,5 @@ public class FoodList extends JFrame {
         //setSize(600, 600);
         setLocationRelativeTo(null);
         setVisible(true);
-
-        // create table with data
-        // JTable table = new JTable(data, columns);
-
-        // add the table to the frame
-        /*
-         * this.add(new JScrollPane(table));
-         * 
-         * this.setTitle("Consumed food list");
-         * this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); this.pack();
-         * this.setVisible(true);
-         */
     }
 }
