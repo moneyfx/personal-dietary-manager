@@ -68,11 +68,15 @@ public class FoodList extends JFrame {
                String f1 = jtf.getText();
                String f2 = jtf2.getText();
                String f3 = jtf3.getText();
-               DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-               LocalDateTime now = LocalDateTime.now();
-               String timeNow = (dtf.format(now));
+               //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+               //LocalDateTime now = LocalDateTime.now();
+               String timeNow = jtfTime.getText();
                Object[] row = { f1, timeNow, f2, f3 };
                model.addRow(row);
+               jtf.setText("");
+               jtf2.setText("");
+               jtf3.setText("");
+               jtf.setText("");
             }
         });
 
