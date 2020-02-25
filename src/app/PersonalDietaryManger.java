@@ -2,7 +2,7 @@ package app;
 
 import javax.swing.*;        
 
-public class Main  {
+public class PersonalDietaryManger  {
     public static void main(String[] args)
     {
         SwingUtilities.invokeLater(new Runnable() {

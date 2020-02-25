@@ -7,8 +7,6 @@ import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
-
 public class FoodList extends JFrame {
     private JTable table;
     private DefaultTableModel model;
