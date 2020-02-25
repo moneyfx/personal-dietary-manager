@@ -44,8 +44,12 @@ public class FoodList extends JFrame {
 
         JPanel panel = new JPanel();
 
+        String[] options = new String[] {"Indining", "Outdining"};
+
+        JComboBox<String> diningOptions = new JComboBox<>(options);
+
         JTextField jtf = new JTextField(15);
-        JLabel label = new JLabel("Name/Retailer");
+        JLabel label = new JLabel("Name");
 
         JTextField jtfTime = new JTextField(15);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
@@ -54,10 +58,25 @@ public class FoodList extends JFrame {
         JLabel labelTime = new JLabel("Time");
 
         JTextField jtf2 = new JTextField(15);
-        JLabel label2 = new JLabel("Serving/Meal");
+        JLabel label2 = new JLabel("Serving");
 
         JTextField jtf3 = new JTextField(15);
         JLabel label3 = new JLabel("Type/Group");
+
+        diningOptions.addActionListener (new ActionListener () {
+            public void actionPerformed(ActionEvent e) {
+                String selectedDining = (String) diningOptions.getSelectedItem();
+                if (selectedDining == "Outdining") {
+                    label.setText("Retailer");
+                    label2.setText("Meal");
+                    label3.setText("Group");
+                } else {
+                    label.setText("Name");
+                    label2.setText("Serving");
+                    label3.setText("Type");
+                }
+            }
+        });
 
 
         JButton addButton = new JButton("Add");
@@ -80,6 +99,7 @@ public class FoodList extends JFrame {
             }
         });
 
+        panel.add(diningOptions);
         panel.add(label);
         panel.add(jtf);
         panel.add(labelTime);
