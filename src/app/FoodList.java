@@ -41,7 +41,7 @@ public class FoodList extends JFrame {
 
         JPanel panel = new JPanel();
 
-        String[] options = new String[] {"Indining", "Outdining"};
+        String[] options = new String[] { "Indining", "Outdining" };
 
         JComboBox<String> diningOptions = new JComboBox<>(options);
 
@@ -49,13 +49,13 @@ public class FoodList extends JFrame {
         JLabel label = new JLabel("Name");
 
         JTextField jtfTime = new JTextField(25);
-        //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        //LocalDateTime now = LocalDateTime.now();
-        //jtfTime.setText(dtf.format(now));
+        // DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        // LocalDateTime now = LocalDateTime.now();
+        // jtfTime.setText(dtf.format(now));
 
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE MMMM dd, HH:mm a");
         String stringDate = sdf.format(new Date());
-    
+
         jtfTime.setText(stringDate);
         JLabel labelTime = new JLabel("Time");
 
@@ -65,7 +65,7 @@ public class FoodList extends JFrame {
         JTextField jtf3 = new JTextField(15);
         JLabel label3 = new JLabel("Type/Group");
 
-        diningOptions.addActionListener (new ActionListener () {
+        diningOptions.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String selectedDining = (String) diningOptions.getSelectedItem();
                 if (selectedDining == "Outdining") {
@@ -80,24 +80,30 @@ public class FoodList extends JFrame {
             }
         });
 
-
         JButton addButton = new JButton("Add");
-        addButton.addActionListener(new ActionListener(){
+        addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               String dinningType = (String) diningOptions.getSelectedItem();
-               String f1 = jtf.getText();
-               String f2 = jtf2.getText();
-               String f3 = jtf3.getText();
-               String timeNow = jtfTime.getText();
+                String dinningType = (String) diningOptions.getSelectedItem();
+                String f1 = jtf.getText();
+                String f2 = jtf2.getText();
+                String f3 = jtf3.getText();
+                String timeNow = jtfTime.getText();
 
-               Object[] row = { dinningType, f1, timeNow, f2, f3 };
-               model.addRow(row);
+                if (dinningType == "Outdining") {
+                    Outdining outdining = new Outdining(f1, timeNow, f2, f3);
+                    Object[] row = { dinningType, outdining.retailer, outdining.time, outdining.meal, outdining.group };
+                    model.addRow(row);
+                } else {
+                    Indining indining = new Indining(f1, timeNow, f2, f3);
+                    Object[] row = { dinningType, indining.name, indining.time, indining.serving, indining.type };
+                    model.addRow(row);
+                }
 
-               jtf.setText("");
-               jtf2.setText("");
-               jtf3.setText("");
-               jtf.setText("");
+                jtf.setText("");
+                jtf2.setText("");
+                jtf3.setText("");
+                jtf.setText("");
             }
         });
 
@@ -115,14 +121,12 @@ public class FoodList extends JFrame {
 
         panel.add(button);
 
-
         add(panel, BorderLayout.CENTER);
-
 
         JPanel panelBottom = new JPanel();
 
         JCheckBox checkbox1 = new JCheckBox("vegetables and fruit");
-        JCheckBox checkbox2 = new JCheckBox("grain products");      
+        JCheckBox checkbox2 = new JCheckBox("grain products");
         JCheckBox checkbox3 = new JCheckBox("milk and alternatives");
         JCheckBox checkbox4 = new JCheckBox("meat and alternatives");
 
@@ -133,12 +137,10 @@ public class FoodList extends JFrame {
 
         add(panelBottom, BorderLayout.SOUTH);
 
-        
-
-        setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //setSize(600, 600);
+        // setSize(600, 600);
         setLocationRelativeTo(null);
         setVisible(true);
     }
