@@ -23,9 +23,13 @@ public class FoodList extends JFrame {
 
         model = new DefaultTableModel(data, columns);
         table = new JTable(model);
+        //for testing
+        table.setName("table");
         table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         button = new JButton("Delete selected row");
+        //for testing
+        button.setName("delete");
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -64,6 +68,19 @@ public class FoodList extends JFrame {
 
         JTextField jtf3 = new JTextField(15);
         JLabel label3 = new JLabel("Type/Group");
+        
+        
+        //for testing
+        jtf.setName("field1");
+        jtfTime.setName("fieldtime");
+        jtf2.setName("field2");
+        jtf3.setName("field3");
+        
+        diningOptions.setName("DiningOptions");
+        
+        label.setName("label1");
+        label2.setName("label2");
+        label3.setName("label3");
 
         diningOptions.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -81,6 +98,9 @@ public class FoodList extends JFrame {
         });
 
         JButton addButton = new JButton("Add");
+        //for testing
+        addButton.setName("addButton");
+        
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -129,6 +149,12 @@ public class FoodList extends JFrame {
         JCheckBox checkbox2 = new JCheckBox("grain products");
         JCheckBox checkbox3 = new JCheckBox("milk and alternatives");
         JCheckBox checkbox4 = new JCheckBox("meat and alternatives");
+        
+        //for testing
+        checkbox1.setName("box1");
+        checkbox2.setName("box2");
+        checkbox3.setName("box3");
+        checkbox4.setName("box4");
 
         panelBottom.add(checkbox1);
         panelBottom.add(checkbox2);
