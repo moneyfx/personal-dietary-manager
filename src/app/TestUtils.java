@@ -1,20 +1,14 @@
 package app;
 
 import java.awt.*;
-import javax.swing.*;
-
-
 //Class to aid in testing of UI components
 public class TestUtils {
 
-
-		
 		public static Component getChildNamed(Component parent, String name) {
 			
 			if (name.equals(parent.getName())) {
 				return parent;
-			}
-			
+			}			
 			if (parent instanceof Container) {
 				Component[] children = ((Container)parent).getComponents();
 				
@@ -25,7 +19,6 @@ public class TestUtils {
 					               }
 					            }
 			}  
-			return null;
-		
+			return null;		
 		}
 }
