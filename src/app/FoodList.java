@@ -6,6 +6,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.BorderFactory;
+import javax.swing.border.TitledBorder;
+import javax.swing.JPanel;
+import javax.swing.JFrame;
 
 public class FoodList extends JFrame {
     private JTable table;
@@ -15,6 +19,7 @@ public class FoodList extends JFrame {
     static final long serialVersionUID = 100L;
 
     public FoodList() {
+        // Top Half
         // headers for the table
         String[] columns = new String[] { "Dining type", "Name/Retailer", "Time", "Serving/Meal", "Type/Group" };
 
@@ -23,34 +28,20 @@ public class FoodList extends JFrame {
 
         model = new DefaultTableModel(data, columns);
         table = new JTable(model);
-        //for testing
+      //for testing
         table.setName("table");
         table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        button = new JButton("Delete selected row");
-        //for testing
-        button.setName("delete");
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                // check for selected row first
-                if (table.getSelectedRow() != -1) {
-                    // remove selected row from the model
-                    model.removeRow(table.getSelectedRow());
-                    // JOptionPane.showMessageDialog(null, "Selected row deleted successfully");
-                }
-            }
-        });
         add(new JScrollPane(table), BorderLayout.NORTH);
 
+        // Bottom Half
         JPanel panel = new JPanel();
 
         String[] options = new String[] { "Indining", "Outdining" };
-
         JComboBox<String> diningOptions = new JComboBox<>(options);
 
-        JTextField jtf = new JTextField(15);
-        JLabel label = new JLabel("Name");
+        JTextField jtfName = new JTextField(15);
+        JLabel labelName = new JLabel("Name");
 
         JTextField jtfTime = new JTextField(25);
         // DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
@@ -63,51 +54,50 @@ public class FoodList extends JFrame {
         jtfTime.setText(stringDate);
         JLabel labelTime = new JLabel("Time");
 
-        JTextField jtf2 = new JTextField(15);
-        JLabel label2 = new JLabel("Serving");
+        JTextField jtfServing = new JTextField(15);
+        JLabel labelServing = new JLabel("Serving");
 
-        JTextField jtf3 = new JTextField(15);
-        JLabel label3 = new JLabel("Type/Group");
+        JTextField jtfTypeGroup = new JTextField(15);
+        JLabel labelTypeGroup = new JLabel("Type/Group");
         
         
         //for testing
-        jtf.setName("field1");
+        jtfName.setName("field1");
         jtfTime.setName("fieldtime");
-        jtf2.setName("field2");
-        jtf3.setName("field3");
+        jtfServing.setName("field2");
+        jtfTypeGroup.setName("field3");
         
         diningOptions.setName("DiningOptions");
         
-        label.setName("label1");
-        label2.setName("label2");
-        label3.setName("label3");
+        labelName.setName("label1");
+        labelServing.setName("label2");
+        labelTypeGroup.setName("label3");
 
         diningOptions.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String selectedDining = (String) diningOptions.getSelectedItem();
                 if (selectedDining == "Outdining") {
-                    label.setText("Retailer");
-                    label2.setText("Meal");
-                    label3.setText("Group");
+                    labelName.setText("Retailer");
+                    labelServing.setText("Meal");
+                    labelTypeGroup.setText("Group");
                 } else {
-                    label.setText("Name");
-                    label2.setText("Serving");
-                    label3.setText("Type");
+                    labelName.setText("Name");
+                    labelServing.setText("Serving");
+                    labelTypeGroup.setText("Type");
                 }
             }
         });
 
         JButton addButton = new JButton("Add");
-        //for testing
+      //for testing
         addButton.setName("addButton");
-        
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String dinningType = (String) diningOptions.getSelectedItem();
-                String f1 = jtf.getText();
-                String f2 = jtf2.getText();
-                String f3 = jtf3.getText();
+                String f1 = jtfName.getText();
+                String f2 = jtfServing.getText();
+                String f3 = jtfTypeGroup.getText();
                 String timeNow = jtfTime.getText();
 
                 if (dinningType == "Outdining") {
@@ -120,22 +110,39 @@ public class FoodList extends JFrame {
                     model.addRow(row);
                 }
 
-                jtf.setText("");
-                jtf2.setText("");
-                jtf3.setText("");
-                jtf.setText("");
+                jtfName.setText("");
+                jtfServing.setText("");
+                jtfTypeGroup.setText("");
+                jtfName.setText("");
             }
         });
 
+        button = new JButton("Delete selected row");
+      //for testing
+        button.setName("delete");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                // check for selected row first
+                if (table.getSelectedRow() != -1) {
+                    // remove selected row from the model
+                    model.removeRow(table.getSelectedRow());
+                    // JOptionPane.showMessageDialog(null, "Selected row deleted successfully");
+                }
+            }
+        });
+
+        panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Personal Dietary Manager - PROTOTYPE", TitledBorder.CENTER, TitledBorder.TOP));
+
         panel.add(diningOptions);
-        panel.add(label);
-        panel.add(jtf);
+        panel.add(labelName);
+        panel.add(jtfName);
         panel.add(labelTime);
         panel.add(jtfTime);
-        panel.add(label2);
-        panel.add(jtf2);
-        panel.add(label3);
-        panel.add(jtf3);
+        panel.add(labelServing);
+        panel.add(jtfServing);
+        panel.add(labelTypeGroup);
+        panel.add(jtfTypeGroup);
 
         panel.add(addButton);
 
@@ -143,18 +150,21 @@ public class FoodList extends JFrame {
 
         add(panel, BorderLayout.CENTER);
 
+        // Footer for categorization
         JPanel panelBottom = new JPanel();
 
-        JCheckBox checkbox1 = new JCheckBox("vegetables and fruit");
-        JCheckBox checkbox2 = new JCheckBox("grain products");
-        JCheckBox checkbox3 = new JCheckBox("milk and alternatives");
-        JCheckBox checkbox4 = new JCheckBox("meat and alternatives");
+        JCheckBox checkbox1 = new JCheckBox("Vegetables and Fruit");
+        JCheckBox checkbox2 = new JCheckBox("Grain Products");
+        JCheckBox checkbox3 = new JCheckBox("Milk and Alternatives");
+        JCheckBox checkbox4 = new JCheckBox("Meat and Alternatives");
         
-        //for testing
+      //for testing
         checkbox1.setName("box1");
         checkbox2.setName("box2");
         checkbox3.setName("box3");
         checkbox4.setName("box4");
+        
+        panelBottom.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Mark Food Groups Eaten", TitledBorder.CENTER, TitledBorder.TOP));
 
         panelBottom.add(checkbox1);
         panelBottom.add(checkbox2);
@@ -163,6 +173,7 @@ public class FoodList extends JFrame {
 
         add(panelBottom, BorderLayout.SOUTH);
 
+        // Default app details
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
