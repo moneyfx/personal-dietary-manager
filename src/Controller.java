@@ -43,16 +43,26 @@ public class Controller {
             String f2 = theView.getItemServing();
             String f3 = theView.getTypeGroup();
             String timeNow = theView.getItemTime();
+            String date = theView.getItemDate();
+            String unit = theView.getItemUnit();
+            String calories = theView.getCalories();
+            String fat = theView.getFat();
+            String carbs = theView.getCarbs();
+            String protein = theView.getProtein();
 
             if (dinningType == "Outdining") {
-                Outdining outdining = new Outdining(f1, timeNow, f2, f3);
+                Outdining outdining = new Outdining(f1, timeNow, date, unit, f2, f3, calories, fat, carbs, protein);
                 theModel.setOutdining(outdining);
-                Object[] row = { dinningType, outdining.getRetailer(), outdining.getTime(), outdining.getMeal(), outdining.getGroup()};
+                Object[] row = {dinningType, outdining.getRetailer(), outdining.getTime(), outdining.getDate(), 
+                		outdining.getMeal(), outdining.getUnit(), outdining.getCalories(), outdining.getFat(),
+                		outdining.getProtein(),outdining.getCarbs(), outdining.getGroup()};
                 theView.getModel().addRow(row);
             } else {
-                Indining indining = new Indining(f1, timeNow, f2, f3);
+                Indining indining = new Indining(f1, timeNow, date, unit, f2, f3, calories, fat, carbs, protein);
                 theModel.setIndining(indining);
-                Object[] row = { dinningType, indining.getName(), indining.getTime(), indining.getServing(), indining.getType() };
+                Object[] row = {dinningType, indining.getName(), indining.getTime(), indining.getDate(), 
+                		indining.getServing(), indining.getUnit(), indining.getCalories(), indining.getFat(),
+                		indining.getProtein(),indining.getCarbs(), indining.getType()};
                 theView.getModel().addRow(row);
             }
 
