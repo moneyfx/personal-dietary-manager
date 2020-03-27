@@ -1,6 +1,9 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+
 public class Controller {
 
     private View theView;
@@ -14,8 +17,7 @@ public class Controller {
         this.theView.addButtonActionListener(new AddButtonListener());
         this.theView.deleteButtonActionListener(new DeleteButtonListener());
     }
-
-
+    
     class DiningOptionListener implements ActionListener {
 
         @Override
@@ -55,15 +57,15 @@ public class Controller {
                 theModel.setOutdining(outdining);
                 Object[] row = {dinningType, outdining.getRetailer(), outdining.getTime(), outdining.getDate(), 
                 		outdining.getMeal(), outdining.getUnit(), outdining.getCalories(), outdining.getFat(),
-                		outdining.getProtein(),outdining.getCarbs(), outdining.getGroup()};
-                theView.getModel().addRow(row);
+                		outdining.getCarbs(), outdining.getProtein(), outdining.getGroup()};
+                theView.getDefaultTable().addRow(row);
             } else {
                 Indining indining = new Indining(f1, timeNow, date, unit, f2, f3, calories, fat, carbs, protein);
                 theModel.setIndining(indining);
                 Object[] row = {dinningType, indining.getName(), indining.getTime(), indining.getDate(), 
                 		indining.getServing(), indining.getUnit(), indining.getCalories(), indining.getFat(),
-                		indining.getProtein(),indining.getCarbs(), indining.getType()};
-                theView.getModel().addRow(row);
+                		indining.getCarbs(), indining.getProtein(), indining.getType()};
+                theView.getDefaultTable().addRow(row);
             }
 
             theView.setJtfName("");
@@ -79,8 +81,7 @@ public class Controller {
                 // check for selected row first
                 if (theView.getTable().getSelectedRow() != -1) {
                     // remove selected row from the model
-                    theView.getModel().removeRow(theView.getTable().getSelectedRow());
-                    // JOptionPane.showMessageDialog(null, "Selected row deleted successfully");
+                    theView.getDefaultTable().removeRow(theView.getTable().getSelectedRow());
                 }
             }
         }
