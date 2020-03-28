@@ -292,7 +292,7 @@ public class View extends JFrame implements Observer {
 
         // Default app details
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setUndecorated(true);
+        //setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // setSize(600, 600);
         setLocationRelativeTo(null);
