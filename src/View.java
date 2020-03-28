@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.Dimension;
 import javax.swing.table.TableRowSorter;
 import javax.swing.table.TableModel;
 import javax.swing.border.TitledBorder;
@@ -7,6 +8,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
 import java.awt.event.WindowEvent;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
@@ -14,6 +16,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.ArrayList;
 
 public class View extends JFrame implements Observer {
 	
@@ -22,7 +25,7 @@ public class View extends JFrame implements Observer {
     
     //The main panel is divided into a top and a bottom panel:
     private JPanel topPanel = new JPanel(new BorderLayout());
-    private JPanel bottomPanel = new JPanel(new GridLayout(4,0));
+    private JPanel bottomPanel = new JPanel(new GridLayout(3,0));
     
     //Top panel
     
@@ -38,27 +41,32 @@ public class View extends JFrame implements Observer {
     
 	//Bottom panel
 	
-	//The bottom panel includes 4 panels: Main Diet Type panel, Hierarchy View panel, Buttons panel and Food Groups panel.
+	//The bottom panel includes 3 panels: Main Diet Type panel, Hierarchy View panel, Buttons + Food Groups panel.
 	 private JPanel mainDietTypePanel = new JPanel(new GridLayout(2,0));
-	 private JPanel hierarchyViewPanel = new JPanel(new GridLayout(0,2)); 
-	 private JPanel buttonPanel = new JPanel();
-	 private JPanel foodGroupPanel = new JPanel();
+	 private JPanel hierarchyViewPanel = new JPanel(new GridLayout(0,2));
+	 private JPanel buttonAndFoodGroupPanel = new JPanel(new GridLayout(2,0));
 	
 	//The Main Diet Type panel includes 2 sub-panels:
-	 private JPanel mainDietTitle = new JPanel();
-	 private JPanel otherFacts = new JPanel();
+	 private JPanel mainDiet = new JPanel();
+	 private JPanel foodGroup = new JPanel();
 	 
-	 //The Main Diet title panel only includes the Indining / Outdining options:
+	 //The Main Diet title panel includes the following:
 	 
 	private String[] options = new String[]{"Indining", "Outdining"};
     private JComboBox<String> diningOptions = new JComboBox<>(options);
-    
-    //The Other Facts panel includes the following:
     private JTextField jtfName = new JTextField(15);
     private JLabel labelName = new JLabel("Name");
+      
+    //The Food Groups panel includes the following:
+    JCheckBox upperCheckbox1 = new JCheckBox("Vegetables and Fruit");
+    JCheckBox upperCheckbox2 = new JCheckBox("Grain Products");
+    JCheckBox upperCheckbox3 = new JCheckBox("Milk and Alternatives");
+    JCheckBox upperCheckbox4 = new JCheckBox("Meat and Alternatives");
     
-    private JTextField jtfTypeGroup = new JTextField(15);
-    private JLabel labelTypeGroup = new JLabel("Type/Group");
+    //Creating an Array List of checkboxes
+    private ArrayList <JCheckBox> checkBoxes = new ArrayList<JCheckBox>();
+    
+    private ButtonGroup checkBoxGroup = new ButtonGroup(); 
     
     //The Hierarchy View panel includes 2 panels:
     
@@ -82,7 +90,7 @@ public class View extends JFrame implements Observer {
     private JTextField jtfServing = new JTextField(15);
     private JLabel labelServing = new JLabel("Serving size");
     
-    private String [] units = new String[] {"item / items","g","ml","tbsp","tsp","cup / cups"};
+    private String [] units = new String[] {"portion", "item / items","g","ml","tbsp","tsp","cup / cups"};
     private JComboBox<String> unitOptions = new JComboBox<>(units);
     private JLabel labelUnit = new JLabel("Unit");
 
@@ -101,17 +109,23 @@ public class View extends JFrame implements Observer {
     private JTextField jtfProtein = new JTextField(10);
     private JLabel labelProtein = new JLabel("Protein");
     
+    //The Button and Food Group panel includes 2 panels:
+    private JPanel buttonPanel = new JPanel();
+	private JPanel foodGroupPanel = new JPanel();
     
-    //The Buttons panel includes the following:
- 
+	//The Buttons panel includes the following:
     private JButton addButton = new JButton("Add");
     private JButton deleteButton = new JButton("Delete selected row");
     
     //The Food Groups panel includes the following:
-    JCheckBox checkbox1 = new JCheckBox("Vegetables and Fruit");
-    JCheckBox checkbox2 = new JCheckBox("Grain Products");
-    JCheckBox checkbox3 = new JCheckBox("Milk and Alternatives");
-    JCheckBox checkbox4 = new JCheckBox("Meat and Alternatives");
+    private JLabel labelCheckbox1 = new JLabel("Vegetables and Fruit:");
+    JCheckBox lowerCheckbox1 = new JCheckBox("eaten");
+    private JLabel labelCheckbox2 = new JLabel("Grain Products:");
+    JCheckBox lowerCheckbox2 = new JCheckBox("eaten");
+    private JLabel labelCheckbox3 = new JLabel("Milk and Alternatives:");
+    JCheckBox lowerCheckbox3 = new JCheckBox("eaten");
+    private JLabel labelCheckbox4 = new JLabel("Meat and Alternatives:");
+    JCheckBox lowerCheckbox4 = new JCheckBox("eaten");
 
     public View() {
    
@@ -119,7 +133,7 @@ public class View extends JFrame implements Observer {
     	
     	//Adding column headers
         String[] columns = new String[]{"Dining type", "Name/Retailer", "Time", "Date", "Serving/Meal", 
-        		"Unit", "Calories", "Fat (gr)", "Carbohydrate (gr)", "Protein (gr)", "Type/Group"}; 
+        		"Unit", "Calories", "Fat (gr)", "Carbohydrate (gr)", "Protein (gr)", "Group"}; 
 
         //Data for the table in a 2d array
         Object[][] data = new Object[][]{};
@@ -196,15 +210,32 @@ public class View extends JFrame implements Observer {
         
         bottomPanel.add(mainDietTypePanel);
         
-        mainDietTypePanel.add(mainDietTitle);
+        mainDietTypePanel.add(mainDiet);
      
-        mainDietTitle.add(diningOptions);
+        mainDiet.add(diningOptions);
+        mainDiet.add(labelName);
+        mainDiet.add(jtfName);
         
-        mainDietTypePanel.add(otherFacts);
-        otherFacts.add(labelName);
-        otherFacts.add(jtfName);
-        otherFacts.add(labelTypeGroup);
-        otherFacts.add(jtfTypeGroup);
+        mainDietTypePanel.add(foodGroup);
+        
+        foodGroup.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Food Groups", TitledBorder.CENTER, TitledBorder.TOP));
+        
+        foodGroup.add(upperCheckbox1);
+        foodGroup.add(upperCheckbox2);
+        foodGroup.add(upperCheckbox3);
+        foodGroup.add(upperCheckbox4);
+        
+        //Adding checkboxes to an array list
+        checkBoxes.add(upperCheckbox1);
+        checkBoxes.add(upperCheckbox2);
+        checkBoxes.add(upperCheckbox3);
+        checkBoxes.add(upperCheckbox4);
+        
+        //Adding checkboxes to a Button Group (ensuring that only one option could be selected)
+        checkBoxGroup.add(upperCheckbox1);
+        checkBoxGroup.add(upperCheckbox2);
+        checkBoxGroup.add(upperCheckbox3);
+        checkBoxGroup.add(upperCheckbox4);
         
         bottomPanel.add(hierarchyViewPanel);
         
@@ -236,21 +267,25 @@ public class View extends JFrame implements Observer {
         nutritionFactsPanel.add(labelProtein);
         nutritionFactsPanel.add(jtfProtein);
         
+        bottomPanel.add(buttonAndFoodGroupPanel);
+        
         //Configuring the buttonPanel
-        bottomPanel.add(buttonPanel);
+        buttonAndFoodGroupPanel.add(buttonPanel);
         buttonPanel.setBorder(BorderFactory.createEtchedBorder());
         buttonPanel.add(addButton);
         buttonPanel.add(deleteButton);
 
         // Configuring the foodGroupPanel.
-        
+        buttonAndFoodGroupPanel.add(foodGroupPanel);
         foodGroupPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Mark Food Groups Eaten", TitledBorder.CENTER, TitledBorder.TOP));
-       
-        foodGroupPanel.add(checkbox1);
-        foodGroupPanel.add(checkbox2);
-        foodGroupPanel.add(checkbox3);
-        foodGroupPanel.add(checkbox4);
-        bottomPanel.add(foodGroupPanel);
+        foodGroupPanel.add(labelCheckbox1);
+        foodGroupPanel.add(lowerCheckbox1);
+        foodGroupPanel.add(labelCheckbox2);
+        foodGroupPanel.add(lowerCheckbox2);
+        foodGroupPanel.add(labelCheckbox3);
+        foodGroupPanel.add(lowerCheckbox3);
+        foodGroupPanel.add(labelCheckbox4);
+        foodGroupPanel.add(lowerCheckbox4);
         
         mainPanel.add(bottomPanel);
         add(mainPanel);
@@ -278,9 +313,6 @@ public class View extends JFrame implements Observer {
         return labelServing;
     }
 
-    public JLabel getLabelTypeGroup() {
-        return labelTypeGroup;
-    }
 
     public String getItemType() {
 
@@ -298,12 +330,12 @@ public class View extends JFrame implements Observer {
         return (jtfServing.getText());
     }
 
-    public String getTypeGroup() {
-        return (jtfTypeGroup.getText());
-
-    }
-
     public String getItemTime() {
+
+        return (jtfTime.getText());
+    }
+    
+    public String getFoodGroup() {
 
         return (jtfTime.getText());
     }
@@ -345,7 +377,15 @@ public class View extends JFrame implements Observer {
     public DefaultTableModel getDefaultTable() {
         return defaultTable;
     }
-
+    
+    public String getSelectedCheckBox() {
+    	for (JCheckBox checkBox : checkBoxes) {
+            if (checkBox.isSelected()) {
+                return (checkBox.getText());
+            }
+        }
+		return null;
+    }
 
     public void setJtfName(String jtfName) {
         this.jtfName.setText(jtfName);
@@ -355,9 +395,37 @@ public class View extends JFrame implements Observer {
     public void setJtfServing(String jtfServing) {
         this.jtfServing.setText(jtfServing);
     }
-
-    public void setJtfTypeGroup(String jtfTypeGroup) {
-        this.jtfTypeGroup.setText(jtfTypeGroup);
+    
+    public void setCheckBoxOneToEaten() {
+    	lowerCheckbox1.setSelected(true);
+    }
+    
+    public void setCheckBoxTwoToEaten() {
+    	lowerCheckbox2.setSelected(true);
+    }
+    
+    public void setCheckBoxThreeToEaten() {
+    	lowerCheckbox3.setSelected(true);
+    }
+    
+    public void setCheckBoxFourToEaten() {
+    	lowerCheckbox4.setSelected(true);
+    }
+    
+    public void setCheckBoxOneToNotEaten() {
+    	lowerCheckbox1.setSelected(false);
+    }
+    
+    public void setCheckBoxTwoToNotEaten() {
+    	lowerCheckbox2.setSelected(false);
+    }
+    
+    public void setCheckBoxThreeToNotEaten() {
+    	lowerCheckbox3.setSelected(false);
+    }
+    
+    public void setCheckBoxFourToNotEaten() {
+    	lowerCheckbox4.setSelected(false);
     }
 
     void diningOptionActionListener(ActionListener listenForTypeChosen) {
@@ -374,6 +442,6 @@ public class View extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-    	JOptionPane.showMessageDialog(null, "A new item has been added to the FoodList ");       
+    	JOptionPane.showMessageDialog(null, "A new item has been added to the Food List ");       
     }
 }
