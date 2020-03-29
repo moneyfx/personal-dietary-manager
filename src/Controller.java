@@ -81,7 +81,7 @@ public class Controller {
             
             
             //When a row is added, one of the food groups is marked as "eaten"
-            if (selectedCheckbox == "Vegetables and Fruit") {
+            if (selectedCheckbox == "Fruits and Vegetables") {
             	vegCounter = vegCounter + 1;
     			theView.setCheckBoxOneToEaten(); 
     		}
