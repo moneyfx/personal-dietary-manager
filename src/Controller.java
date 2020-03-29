@@ -70,6 +70,15 @@ public class Controller {
                 		indining.getCarbs(), indining.getProtein(), indining.getType()};
                 theView.getDefaultTable().addRow(row);
             }
+            // clearing fields
+            theView.setJtfName("");
+            theView.setJtfServing("");
+            theView.setCalories("");
+            theView.setCarbs("");
+            theView.setFat("");
+            theView.setProtein("");
+            
+            
             
             //When a row is added, one of the food groups is marked as "eaten"
             if (selectedCheckbox == "Vegetables and Fruit") {

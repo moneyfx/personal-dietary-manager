@@ -37,7 +37,7 @@ public class View extends JFrame implements Observer {
     
     //The filter panel includes a text field for search and a label
 	private JTextField jtfFilter = new JTextField(15);
-	private JLabel labelFilter = new JLabel("Specify a word to filter:");
+	private JLabel labelFilter = new JLabel("Specify a word to filter view:");
     
 	//Bottom panel
 	
@@ -58,7 +58,7 @@ public class View extends JFrame implements Observer {
     private JLabel labelName = new JLabel("Name");
       
     //The Food Groups panel includes the following:
-    JCheckBox upperCheckbox1 = new JCheckBox("Vegetables and Fruit");
+    JCheckBox upperCheckbox1 = new JCheckBox("Fruits and Vegetables");
     JCheckBox upperCheckbox2 = new JCheckBox("Grain Products");
     JCheckBox upperCheckbox3 = new JCheckBox("Milk and Alternatives");
     JCheckBox upperCheckbox4 = new JCheckBox("Meat and Alternatives");
@@ -97,16 +97,16 @@ public class View extends JFrame implements Observer {
     
     //The Nutrition facts panel includes the following:
  
-    private JTextField jtfCalories = new JTextField(10);
+    private JTextField jtfCalories = new JTextField(8);
     private JLabel labelCalories = new JLabel("Calories");
     
-    private JTextField jtfFat = new JTextField(10);
+    private JTextField jtfFat = new JTextField(8);
     private JLabel labelFat = new JLabel("Fat");
     
-    private JTextField jtfCarbs = new JTextField(10);
+    private JTextField jtfCarbs = new JTextField(8);
     private JLabel labelCarbs = new JLabel("Carbs");
     
-    private JTextField jtfProtein = new JTextField(10);
+    private JTextField jtfProtein = new JTextField(8);
     private JLabel labelProtein = new JLabel("Protein");
     
     //The Button and Food Group panel includes 2 panels:
@@ -118,7 +118,7 @@ public class View extends JFrame implements Observer {
     private JButton deleteButton = new JButton("Delete selected row");
     
     //The Food Groups panel includes the following:
-    private JLabel labelCheckbox1 = new JLabel("Vegetables and Fruit:");
+    private JLabel labelCheckbox1 = new JLabel("Fruits and Vegetables:");
     JCheckBox lowerCheckbox1 = new JCheckBox("eaten");
     private JLabel labelCheckbox2 = new JLabel("Grain Products:");
     JCheckBox lowerCheckbox2 = new JCheckBox("eaten");
@@ -218,7 +218,7 @@ public class View extends JFrame implements Observer {
         
         mainDietTypePanel.add(foodGroup);
         
-        foodGroup.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Food Groups", TitledBorder.CENTER, TitledBorder.TOP));
+        foodGroup.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Select Food Group", TitledBorder.CENTER, TitledBorder.TOP));
         
         foodGroup.add(upperCheckbox1);
         foodGroup.add(upperCheckbox2);
@@ -277,7 +277,7 @@ public class View extends JFrame implements Observer {
 
         // Configuring the foodGroupPanel.
         buttonAndFoodGroupPanel.add(foodGroupPanel);
-        foodGroupPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Mark Food Groups Eaten", TitledBorder.CENTER, TitledBorder.TOP));
+        foodGroupPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Food Groups Eaten", TitledBorder.CENTER, TitledBorder.TOP));
         foodGroupPanel.add(labelCheckbox1);
         foodGroupPanel.add(lowerCheckbox1);
         foodGroupPanel.add(labelCheckbox2);
@@ -394,6 +394,22 @@ public class View extends JFrame implements Observer {
 
     public void setJtfServing(String jtfServing) {
         this.jtfServing.setText(jtfServing);
+    }
+    
+    public void setCalories(String jtfCalories) {
+    	this.jtfCalories.setText(jtfCalories);
+    }
+    
+    public void setCarbs(String jtfCarbs) {
+    	this.jtfCarbs.setText(jtfCarbs);
+    }
+    
+    public void setFat(String jtfFat) {
+    	this.jtfFat.setText(jtfFat);
+    }
+    
+    public void setProtein(String jtfProtein) {
+    	this.jtfProtein.setText(jtfProtein);
     }
     
     public void setCheckBoxOneToEaten() {

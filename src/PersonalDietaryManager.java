@@ -1,4 +1,4 @@
-public class PersonalDietaryManger  {
+public class PersonalDietaryManager  {
     public static void main(String[] args)
     {
     	View mvcView = new View();
