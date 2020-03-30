@@ -67,7 +67,7 @@ public class Controller {
                 theModel.setIndining(indining);
                 Object[] row = {dinningType, indining.getName(), indining.getTime(), indining.getDate(), 
                 		indining.getServing(), indining.getUnit(), indining.getCalories(), indining.getFat(),
-                		indining.getCarbs(), indining.getProtein(), indining.getType()};
+                		indining.getCarbs(), indining.getProtein(), indining.getGroup()};
                 theView.getDefaultTable().addRow(row);
             }
             // clearing fields

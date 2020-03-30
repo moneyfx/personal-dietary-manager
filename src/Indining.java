@@ -4,18 +4,18 @@ public class Indining {
     private String date;
     private String unit;
     private String serving;
-    private String type;
+    private String group;
     private String calories;
     private String fat;
     private String carbs;
     private String protein;
 
     public Indining (String name, String time, String date, String unit, String serving, 
-    		String type, String calories, String fat, String carbs, String protein) {
+    		String group, String calories, String fat, String carbs, String protein) {
         this.name = name;
         this.time = time;
         this.serving = serving;
-        this.type = type;
+        this.group = group;
         this.date = date;
         this.unit = unit;
         this.calories = calories;
@@ -96,11 +96,11 @@ public class Indining {
         this.serving = serving;
     }
 
-    public String getType() {
-        return type;
+    public String getGroup() {
+        return group;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setGroup(String group) {
+        this.group = group;
     }
 }
