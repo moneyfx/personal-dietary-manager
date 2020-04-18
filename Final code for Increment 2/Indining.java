@@ -14,10 +14,10 @@ public class Indining {
     		String group, String calories, String fat, String carbs, String protein) {
         this.name = name;
         this.time = time;
-        this.serving = serving +" "+ unit;  //groups the serving and unit in same field. makes more sense for db.
+        this.serving = serving;
         this.group = group;
         this.date = date;
-       // this.unit = unit;
+        this.unit = unit;
         this.calories = calories;
         this.fat = fat;
         this.carbs = carbs;
