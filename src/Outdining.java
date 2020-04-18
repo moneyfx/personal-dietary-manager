@@ -3,22 +3,23 @@ public class Outdining {
 	private String retailer;
     private String time;
     private String date;
-    private String unit;
+  //  private String unit;
     private String meal;
     private String group;
     private String calories;
     private String fat;
     private String carbs;
     private String protein;
-
-    public Outdining (String retailer, String time, String date, String unit, String meal, 
+    
+//if every want to add unit back: String unit, (goes after date)
+    public Outdining (String retailer, String time, String date,  String meal, 
     		String group, String calories, String fat, String carbs, String protein) {
         this.retailer = retailer;
         this.time = time;
         this.meal = meal;
         this.group = group;
         this.date = date;
-        this.unit = unit;
+      //  this.unit = unit;
         this.calories = calories;
         this.fat = fat;
         this.carbs = carbs;
@@ -33,13 +34,13 @@ public class Outdining {
 		this.date = date;
 	}
 
-	public String getUnit() {
-		return unit;
-	}
+//	public String getUnit() {
+//		return unit;
+//	}
 
-	public void setUnit(String unit) {
-		this.unit = unit;
-	}
+//	public void setUnit(String unit) {
+//		this.unit = unit;
+//	}
 
 	public String getCalories() {
 		return calories;

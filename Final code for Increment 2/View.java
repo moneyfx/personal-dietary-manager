@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.Dimension;
 import javax.swing.table.TableRowSorter;
-import javax.swing.text.NumberFormatter;
 import javax.swing.table.TableModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
@@ -9,12 +8,9 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowEvent;
-import java.sql.SQLException;
 import java.sql.Time;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -23,10 +19,6 @@ import java.util.Observer;
 import java.util.ArrayList;
 
 public class View extends JFrame implements Observer {
-	
-    
-    
-	
 	
 	//This is the main window called mainDietTypePanel:
     private JPanel mainPanel = new JPanel(new GridLayout(2,0));
@@ -138,13 +130,12 @@ public class View extends JFrame implements Observer {
     
 
     public View() {
-    	
    
         // Configuring the top panel
     	
     	//Adding column headers
         String[] columns = new String[]{"Dining type", "Name/Retailer", "Time", "Date", "Serving/Meal", 
-        		 "Calories", "Fat (gr)", "Carbohydrate (gr)", "Protein (gr)", "Group"}; 
+        		"Unit", "Calories", "Fat (gr)", "Carbohydrate (gr)", "Protein (gr)", "Group"}; 
 
         //Data for the table in a 2d array
         Object[][] data = new Object[][]{};
@@ -152,15 +143,6 @@ public class View extends JFrame implements Observer {
         defaultTable = new DefaultTableModel(data, columns);
         table = new JTable(defaultTable);
         topPanel.add(table, BorderLayout.NORTH);
-        
-        //test load table at startup Can this stay int the view? or needs to move to controller somehow?
-        try {
-			accessIndining.FillTable(defaultTable);
-			accessOutdining.FillTable(defaultTable);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
         
         //creating a sorter
         TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(table.getModel());
@@ -219,7 +201,7 @@ public class View extends JFrame implements Observer {
         // settingUp time and date
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE MMMM dd");
-        SimpleDateFormat sdf2 = new SimpleDateFormat ("HH:mm");
+        SimpleDateFormat sdf2 = new SimpleDateFormat ("HH:mm a");
         String stringDate = sdf.format(new Date());
         String stringTime = sdf2.format(cal.getTime());
         jtfTime.setText(stringTime);
@@ -277,7 +259,6 @@ public class View extends JFrame implements Observer {
         servingSizePanel.add(unitOptions);
         
         servingPanel.add(nutritionFactsPanel);
-        
         
         nutritionFactsPanel.add(labelCalories);
         nutritionFactsPanel.add(jtfCalories);
@@ -475,11 +456,6 @@ public class View extends JFrame implements Observer {
 
     void deleteButtonActionListener(ActionListener listenForDeleteButton) {
         deleteButton.addActionListener(listenForDeleteButton);
-    }
-    
-    //NEW LISTENER TO PREFILL NUTRITION FIELDS
-    void nameFieldFocusListener(FocusAdapter nameFocusListener) {
-    	jtfName.addFocusListener(nameFocusListener);
     }
 
     @Override

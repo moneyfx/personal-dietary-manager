@@ -1,23 +1,24 @@
-public class Indining {
-    private String name;
+public class Outdining {
+
+	private String retailer;
     private String time;
     private String date;
     private String unit;
-    private String serving;
+    private String meal;
     private String group;
     private String calories;
     private String fat;
     private String carbs;
     private String protein;
 
-    public Indining (String name, String time, String date, String unit, String serving, 
+    public Outdining (String retailer, String time, String date, String unit, String meal, 
     		String group, String calories, String fat, String carbs, String protein) {
-        this.name = name;
+        this.retailer = retailer;
         this.time = time;
-        this.serving = serving +" "+ unit;  //groups the serving and unit in same field. makes more sense for db.
+        this.meal = meal;
         this.group = group;
         this.date = date;
-       // this.unit = unit;
+        this.unit = unit;
         this.calories = calories;
         this.fat = fat;
         this.carbs = carbs;
@@ -72,32 +73,33 @@ public class Indining {
 		this.protein = protein;
 	}
 
-	public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+	public String getRetailer() {
+        return retailer;
     }
 
     public String getTime() {
         return time;
     }
 
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public String getServing() {
-        return serving;
-    }
-
-    public void setServing(String serving) {
-        this.serving = serving;
+    public String getMeal() {
+        return meal;
     }
 
     public String getGroup() {
         return group;
+    }
+
+
+    public void setRetailer(String retailer) {
+        this.retailer = retailer;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public void setMeal(String meal) {
+        this.meal = meal;
     }
 
     public void setGroup(String group) {
