@@ -41,10 +41,23 @@ public class Controller {
     	}  	
     	else {
     		return true;
-    	}
-    	
+    	} 
     	
     }	
+    
+  //Check if time format is valid xx:xx, otherwise can't be converted to SQL time format.
+	private boolean checkTimeInput(String time) {
+		
+		if ( !(Pattern.matches("^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$", time))) {
+            JOptionPane.showMessageDialog(null, " Time should be formatted as valid HH:mm");
+            return false;
+    	}  	
+    	else {
+    		return true;
+    	} 
+		
+	}
+	
     //method to clear fields once add button pressed
     private void clearFields() {
     	theView.setJtfName("");
@@ -90,7 +103,7 @@ public class Controller {
             String protein = theView.getProtein();
             
             
-           //Adding validation to the nutrition facts  
+           //Adding validation to the nutrition facts and time 
            boolean readyToAdd = true;
             if (!inputInt(calories, "calories")) {
             	theView.setCalories("");
@@ -109,6 +122,9 @@ public class Controller {
             }
             if (!inputInt(protein, "protein")) {
             	theView.setProtein("");	
+            	readyToAdd = false;
+            }
+            if (!checkTimeInput(timeNow)) {
             	readyToAdd = false;
             }
             
