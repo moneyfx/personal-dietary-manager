@@ -153,14 +153,6 @@ public class View extends JFrame implements Observer {
         table = new JTable(defaultTable);
         topPanel.add(table, BorderLayout.NORTH);
         
-        //test load table at startup Can this stay int the view? or needs to move to controller somehow?
-        try {
-			accessIndining.FillTable(defaultTable);
-			accessOutdining.FillTable(defaultTable);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
         
         //creating a sorter
         TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(table.getModel());

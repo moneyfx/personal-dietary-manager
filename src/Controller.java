@@ -30,6 +30,7 @@ public class Controller {
         this.theView.addButtonActionListener(new AddButtonListener());
         this.theView.deleteButtonActionListener(new DeleteButtonListener());
         this.theView.nameFieldFocusListener(new nameFocusListener()); 
+        loadfromDB();
     }
     
     //checks if input is a valid number accepts integers and decimal numbers
@@ -66,6 +67,19 @@ public class Controller {
         theView.setCarbs("");
         theView.setFat("");
         theView.setProtein("");
+    }
+    
+    
+    
+    public void loadfromDB() {
+    	try {
+			accessIndining.FillTable(theView.getDefaultTable());
+			accessOutdining.FillTable(theView.getDefaultTable());
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    	
     }
     
     
@@ -165,10 +179,7 @@ public class Controller {
                 clearFields();
             }
             // clearing fields
-            
-            
-            
-            
+                     
             //When a row is added, one of the food groups is marked as "eaten"
             if (selectedCheckbox == "Fruits and Vegetables") {
             	vegCounter = vegCounter + 1;
