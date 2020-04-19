@@ -22,11 +22,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.ArrayList;
 
-public class View extends JFrame implements Observer {
-	
-    
-    
-	
+public class View extends JFrame implements Observer {	
 	
 	//This is the main window called mainDietTypePanel:
     private JPanel mainPanel = new JPanel(new GridLayout(2,0));
@@ -153,14 +149,6 @@ public class View extends JFrame implements Observer {
         table = new JTable(defaultTable);
         topPanel.add(table, BorderLayout.NORTH);
         
-        //test load table at startup Can this stay int the view? or needs to move to controller somehow?
-        try {
-			accessIndining.FillTable(defaultTable);
-			accessOutdining.FillTable(defaultTable);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
         
         //creating a sorter
         TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(table.getModel());
@@ -298,7 +286,7 @@ public class View extends JFrame implements Observer {
 
         // Configuring the foodGroupPanel.
         buttonAndFoodGroupPanel.add(foodGroupPanel);
-        foodGroupPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Food Groups Eaten", TitledBorder.CENTER, TitledBorder.TOP));
+        foodGroupPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Food Groups Eaten Today", TitledBorder.CENTER, TitledBorder.TOP));
         foodGroupPanel.add(labelCheckbox1);
         foodGroupPanel.add(lowerCheckbox1);
         foodGroupPanel.add(labelCheckbox2);

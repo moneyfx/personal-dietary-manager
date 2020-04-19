@@ -87,7 +87,15 @@ public class accessIndining {
 	            for (int i = 0; i < columns; i++)
 	            {  
 	            	row[0] = "Indining";
-	                row[i+1] = rs.getObject(i+1);
+	            	row[1] = rs.getString("foodname");
+	            	row[2] = rs.getTime("entry_time").toString();
+	            	row[3] = rs.getString("entry_date");
+	            	row[4] = rs.getString("serving");
+	            	row[5] = rs.getString("calories");
+	            	row[6] = rs.getString("fat");
+	            	row[7] = rs.getString("carbs");
+	            	row[8] = rs.getString("protein");
+	            	row[9] = rs.getString("fg_name");
 	            }
 	             table.addRow(row);
 	        }
@@ -121,7 +129,6 @@ public class accessIndining {
 		 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 			long ms = sdf.parse(s).getTime();
 			Time t = new Time(ms);
-			System.out.println(t);
 			return t;
 	 }
 }

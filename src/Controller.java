@@ -4,6 +4,9 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 import javax.swing.JCheckBox;
@@ -30,6 +33,7 @@ public class Controller {
         this.theView.addButtonActionListener(new AddButtonListener());
         this.theView.deleteButtonActionListener(new DeleteButtonListener());
         this.theView.nameFieldFocusListener(new nameFocusListener()); 
+        loadfromDB();
     }
     
     //checks if input is a valid number accepts integers and decimal numbers
@@ -41,10 +45,23 @@ public class Controller {
     	}  	
     	else {
     		return true;
-    	}
-    	
+    	} 
     	
     }	
+    
+  //Check if time format is valid xx:xx, otherwise can't be converted to SQL time format.
+	private boolean checkTimeInput(String time) {
+		
+		if ( !(Pattern.matches("^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$", time))) {
+            JOptionPane.showMessageDialog(null, " Time should be formatted as valid HH:mm");
+            return false;
+    	}  	
+    	else {
+    		return true;
+    	} 
+		
+	}
+	
     //method to clear fields once add button pressed
     private void clearFields() {
     	theView.setJtfName("");
@@ -53,6 +70,53 @@ public class Controller {
         theView.setCarbs("");
         theView.setFat("");
         theView.setProtein("");
+    }
+    
+    //to get current date as a string
+    private String currentDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE MMMM dd");        
+        String stringDate = sdf.format(new Date());
+        return stringDate;
+    }
+    
+    
+    //add code here to update the mark as eaten. if item was eaten at current date, update counter for that group!
+    public void loadfromDB() {
+    	try {
+			accessIndining.FillTable(theView.getDefaultTable());
+			accessOutdining.FillTable(theView.getDefaultTable());				
+			//updating food groups eaten today
+			
+			for (int i = 0; i < theView.getTable().getRowCount(); i++) { //iterate through every row
+				
+				if (currentDate().equals(theView.getTable().getValueAt(i,3))) { //if date of entry is today
+					
+					if (theView.getTable().getValueAt(i,9).equals("Fruits and Vegetables")) {
+		            	vegCounter = vegCounter + 1;
+		    			theView.setCheckBoxOneToEaten(); 
+		    		}
+		    		
+		    		else if (theView.getTable().getValueAt(i,9).equals("Grain Products") ) {
+		    			grainCounter = grainCounter + 1;
+		    			theView.setCheckBoxTwoToEaten(); 
+		    		}
+		    		
+		    		else if (theView.getTable().getValueAt(i,9).equals("Milk and Alternatives")) {
+		    			milkCounter = milkCounter + 1;
+		    			theView.setCheckBoxThreeToEaten(); 
+		    		}
+		    		
+		    		else if (theView.getTable().getValueAt(i,9).equals("Meat and Alternatives")) {
+		    			meatCounter = meatCounter + 1;
+		    			theView.setCheckBoxFourToEaten(); 
+		    		} 
+				}
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    	
     }
     
     
@@ -90,7 +154,7 @@ public class Controller {
             String protein = theView.getProtein();
             
             
-           //Adding validation to the nutrition facts  
+           //Adding validation to the nutrition facts and time 
            boolean readyToAdd = true;
             if (!inputInt(calories, "calories")) {
             	theView.setCalories("");
@@ -109,6 +173,9 @@ public class Controller {
             }
             if (!inputInt(protein, "protein")) {
             	theView.setProtein("");	
+            	readyToAdd = false;
+            }
+            if (!checkTimeInput(timeNow)) {
             	readyToAdd = false;
             }
             
@@ -149,27 +216,24 @@ public class Controller {
                 clearFields();
             }
             // clearing fields
-            
-            
-            
-            
+                     
             //When a row is added, one of the food groups is marked as "eaten"
-            if (selectedCheckbox == "Fruits and Vegetables") {
+            if (selectedCheckbox.equals("Fruits and Vegetables")) {
             	vegCounter = vegCounter + 1;
     			theView.setCheckBoxOneToEaten(); 
     		}
     		
-    		else if (selectedCheckbox == "Grain Products") {
+    		else if (selectedCheckbox.equals("Grain Products")) {
     			grainCounter = grainCounter + 1;
     			theView.setCheckBoxTwoToEaten(); 
     		}
     		
-    		else if (selectedCheckbox == "Milk and Alternatives") {
+    		else if (selectedCheckbox.equals("Milk and Alternatives")) {
     			milkCounter = milkCounter + 1;
     			theView.setCheckBoxThreeToEaten(); 
     		}
     		
-    		else if (selectedCheckbox == "Meat and Alternatives") {
+    		else if (selectedCheckbox.equals("Meat and Alternatives")) {
     			meatCounter = meatCounter + 1;
     			theView.setCheckBoxFourToEaten(); 
     		} 
@@ -203,28 +267,28 @@ public class Controller {
  
                 	
                 	//Update eaten / not eaten boxes, if needed
-                    if (groupValue == "Fruits and Vegetables") {
+                    if (groupValue.equals("Fruits and Vegetables")) {
                     	vegCounter = vegCounter - 1;
                     	if (vegCounter == 0) {
                 			theView.setCheckBoxOneToNotEaten(); 
                 		}
             		}
             		
-            		else if (groupValue == "Grain Products") {
+            		else if (groupValue.equals("Grain Products")) {
             			grainCounter = grainCounter - 1;
             			if (grainCounter == 0) {
                 			theView.setCheckBoxTwoToNotEaten(); 
                 		}
             		}
             		
-            		else if (groupValue == "Milk and Alternatives") {
+            		else if (groupValue.equals("Milk and Alternatives")) {
             			milkCounter = milkCounter - 1;
             			if (milkCounter == 0) {
                 			theView.setCheckBoxThreeToNotEaten();
             			}
             		}
             		
-            		else if (groupValue == "Meat and Alternatives") {
+            		else if (groupValue.equals("Meat and Alternatives")) {
             			meatCounter = meatCounter - 1;
             			 if (meatCounter == 0) {
                 			theView.setCheckBoxFourToNotEaten(); 
