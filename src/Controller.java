@@ -4,6 +4,9 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 import javax.swing.JCheckBox;
@@ -69,12 +72,47 @@ public class Controller {
         theView.setProtein("");
     }
     
+    private String currentDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE MMMM dd");        
+        String stringDate = sdf.format(new Date());
+        return stringDate;
+    }
     
     
+    //add code here to update the mark as eaten. if item was eaten at current date, update counter for that group!
     public void loadfromDB() {
     	try {
 			accessIndining.FillTable(theView.getDefaultTable());
 			accessOutdining.FillTable(theView.getDefaultTable());
+			
+			System.out.println(currentDate());			
+			//updating food groups eaten today
+			
+			for (int i = 0; i < theView.getTable().getRowCount(); i++) { //iterate through every row
+				System.out.println(theView.getTable().getValueAt(i,3));
+				if (currentDate().equals(theView.getTable().getValueAt(i,3))) { //if date of entry is today
+					
+					if (theView.getTable().getValueAt(i,9).equals("Fruits and Vegetables")) {
+		            	vegCounter = vegCounter + 1;
+		    			theView.setCheckBoxOneToEaten(); 
+		    		}
+		    		
+		    		else if (theView.getTable().getValueAt(i,9).equals("Grain Products") ) {
+		    			grainCounter = grainCounter + 1;
+		    			theView.setCheckBoxTwoToEaten(); 
+		    		}
+		    		
+		    		else if (theView.getTable().getValueAt(i,9).equals("Milk and Alternatives")) {
+		    			milkCounter = milkCounter + 1;
+		    			theView.setCheckBoxThreeToEaten(); 
+		    		}
+		    		
+		    		else if (theView.getTable().getValueAt(i,9).equals("Meat and Alternatives")) {
+		    			meatCounter = meatCounter + 1;
+		    			theView.setCheckBoxFourToEaten(); 
+		    		} 
+				}
+			}
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

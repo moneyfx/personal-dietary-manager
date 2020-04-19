@@ -22,11 +22,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.ArrayList;
 
-public class View extends JFrame implements Observer {
-	
-    
-    
-	
+public class View extends JFrame implements Observer {	
 	
 	//This is the main window called mainDietTypePanel:
     private JPanel mainPanel = new JPanel(new GridLayout(2,0));
