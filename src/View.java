@@ -286,7 +286,7 @@ public class View extends JFrame implements Observer {
 
         // Configuring the foodGroupPanel.
         buttonAndFoodGroupPanel.add(foodGroupPanel);
-        foodGroupPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Food Groups Eaten", TitledBorder.CENTER, TitledBorder.TOP));
+        foodGroupPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Food Groups Eaten Today", TitledBorder.CENTER, TitledBorder.TOP));
         foodGroupPanel.add(labelCheckbox1);
         foodGroupPanel.add(lowerCheckbox1);
         foodGroupPanel.add(labelCheckbox2);

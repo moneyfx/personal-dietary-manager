@@ -72,6 +72,7 @@ public class Controller {
         theView.setProtein("");
     }
     
+    //to get current date as a string
     private String currentDate() {
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE MMMM dd");        
         String stringDate = sdf.format(new Date());
@@ -83,13 +84,11 @@ public class Controller {
     public void loadfromDB() {
     	try {
 			accessIndining.FillTable(theView.getDefaultTable());
-			accessOutdining.FillTable(theView.getDefaultTable());
-			
-			System.out.println(currentDate());			
+			accessOutdining.FillTable(theView.getDefaultTable());				
 			//updating food groups eaten today
 			
 			for (int i = 0; i < theView.getTable().getRowCount(); i++) { //iterate through every row
-				System.out.println(theView.getTable().getValueAt(i,3));
+				
 				if (currentDate().equals(theView.getTable().getValueAt(i,3))) { //if date of entry is today
 					
 					if (theView.getTable().getValueAt(i,9).equals("Fruits and Vegetables")) {
@@ -219,22 +218,22 @@ public class Controller {
             // clearing fields
                      
             //When a row is added, one of the food groups is marked as "eaten"
-            if (selectedCheckbox == "Fruits and Vegetables") {
+            if (selectedCheckbox.equals("Fruits and Vegetables")) {
             	vegCounter = vegCounter + 1;
     			theView.setCheckBoxOneToEaten(); 
     		}
     		
-    		else if (selectedCheckbox == "Grain Products") {
+    		else if (selectedCheckbox.equals("Grain Products")) {
     			grainCounter = grainCounter + 1;
     			theView.setCheckBoxTwoToEaten(); 
     		}
     		
-    		else if (selectedCheckbox == "Milk and Alternatives") {
+    		else if (selectedCheckbox.equals("Milk and Alternatives")) {
     			milkCounter = milkCounter + 1;
     			theView.setCheckBoxThreeToEaten(); 
     		}
     		
-    		else if (selectedCheckbox == "Meat and Alternatives") {
+    		else if (selectedCheckbox.equals("Meat and Alternatives")) {
     			meatCounter = meatCounter + 1;
     			theView.setCheckBoxFourToEaten(); 
     		} 
@@ -268,28 +267,28 @@ public class Controller {
  
                 	
                 	//Update eaten / not eaten boxes, if needed
-                    if (groupValue == "Fruits and Vegetables") {
+                    if (groupValue.equals("Fruits and Vegetables")) {
                     	vegCounter = vegCounter - 1;
                     	if (vegCounter == 0) {
                 			theView.setCheckBoxOneToNotEaten(); 
                 		}
             		}
             		
-            		else if (groupValue == "Grain Products") {
+            		else if (groupValue.equals("Grain Products")) {
             			grainCounter = grainCounter - 1;
             			if (grainCounter == 0) {
                 			theView.setCheckBoxTwoToNotEaten(); 
                 		}
             		}
             		
-            		else if (groupValue == "Milk and Alternatives") {
+            		else if (groupValue.equals("Milk and Alternatives")) {
             			milkCounter = milkCounter - 1;
             			if (milkCounter == 0) {
                 			theView.setCheckBoxThreeToNotEaten();
             			}
             		}
             		
-            		else if (groupValue == "Meat and Alternatives") {
+            		else if (groupValue.equals("Meat and Alternatives")) {
             			meatCounter = meatCounter - 1;
             			 if (meatCounter == 0) {
                 			theView.setCheckBoxFourToNotEaten(); 

@@ -129,7 +129,6 @@ public class accessIndining {
 		 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 			long ms = sdf.parse(s).getTime();
 			Time t = new Time(ms);
-			System.out.println(t);
 			return t;
 	 }
 }
